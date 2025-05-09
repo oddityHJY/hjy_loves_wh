@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>生日祝福 | Happy Birthday</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            overflow: hidden;
+            font-family: 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 15px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 0 #ff4757;
+            margin: 0 0 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            max-width: 90%;
+            margin: 1.5em auto;
+            padding: 1.2em;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 修复蛋糕样式 */
+        .cake-container {
+            position: relative;
+            margin: 20px auto;
+            width: 150px;
+            height: 150px;
+            z-index: 2;
+        }
+
+        .cake {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cake-layer {
+            background: #f8d9d5;
+            border-radius: 10px;
+            position: absolute;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .layer-bottom {
+            width: 100%;
+            height: 80px;
+            bottom: 0;
+        }
+
+        .layer-middle {
+            width: 80%;
+            height: 60px;
+            bottom: 70px;
+            left: 10%;
+        }
+
+        .layer-top {
+            width: 60%;
+            height: 40px;
+            bottom: 120px;
+            left: 20%;
+        }
+
+        .candle {
+            position: absolute;
+            width: 8px;
+            height: 40px;
+            background: #fff;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .candle::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: -15px;
+            left: -2px;
+            animation: flame 1.2s ease-in-out infinite;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff3b3b;
+            animation: fall linear forwards;
+            font-size: 24px !important;
+            opacity: 0.9;
+            text-shadow: 0 0 5px rgba(255, 59, 59, 0.5);
+            will-change: transform;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fall {
+            from { 
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            to { 
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flame {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.1) translateY(-2px); opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2em; }
+            .cake-container {
+                width: 120px;
+                height: 120px;
+                margin: 10px auto;
+            }
+            .layer-bottom { height: 60px; }
+            .layer-middle { 
+                height: 45px; 
+                bottom: 55px;
+            }
+            .layer-top { 
+                height: 30px; 
+                bottom: 95px;
+            }
+            .candle {
+                height: 30px;
+                bottom: 100px;
+            }
+            .heart { font-size: 18px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <h1>🎉 生日快乐！</h1>
+
+        <!-- 修复的蛋糕结构 -->
+        <div class="cake-container">
+            <div class="cake">
+                <div class="cake-layer layer-bottom"></div>
+                <div class="cake-layer layer-middle"></div>
+                <div class="cake-layer layer-top"></div>
+                <div class="candle"></div>
+            </div>
+        </div>
+        <div class="message">
+            <h2>亲爱的奋斗者</h2>
+            <p>在这个特别的日子里，愿所有美好如期而至！</p >
+            <p>🎂 愿你的每一天都充满阳光与欢笑</p >
+            <p>🎁 愿所有愿望都能实现</p >
+            <p>✨ 愿你永远保持灿烂的笑容</p >
+            <p style="color: #ff6b6b; font-weight: bold;">❤ 来自“小西岭” ❤</p >
+        </div>
+    </div>
+
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/07/audio_2d4c7d94c4.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 修复的爱心生成逻辑
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 95 + '%';
+            heart.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.parentNode?.removeChild(heart);
+            }, 5000);
+        }
+
+        // 使用requestAnimationFrame优化性能
+        let lastTime = 0;
+        function animateHearts(timestamp) {
+            if (timestamp - lastTime > 300) {
+                createHearts();
+                lastTime = timestamp;
+            }
+            requestAnimationFrame(animateHearts);
+        }
+        requestAnimationFrame(animateHearts);
+
+        // 添加点击/触摸事件
+        document.addEventListener('click', function() {
+            for(let i = 0; i < 15; i++) {
+                setTimeout(createHearts, i * 50);
+            }
+        });
+
+        // 防止移动端滚动
+        document.body.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>
